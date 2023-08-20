@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illumiate\Http\JsonResponse;
 use App\Models\Stage;
 
 class StageController extends Controller
 {
     //
-    public function create (Request $request): JsonResponse
+    public function create (Request $request)
     {
         $data = $request->validate([
             'name' => 'required|string'
@@ -28,7 +27,7 @@ class StageController extends Controller
         ], 201);
     }
 
-    public function list (): JsonResponse
+    public function list ()
     {
         $user = auth()->user();
 
@@ -37,6 +36,25 @@ class StageController extends Controller
         return response()->json([
             'message' => 'Successfully retrieved stages',
             'data' => $stages
+        ]);
+    }
+
+    public function delete ($id)
+    {
+        $user = auth()->user();
+
+        $stage = Stage::where('user_id', $user['id'])->where('id', $id)->first();
+
+        if (!$stage) {
+            return response()->json([
+                'message' => 'Stage does not exist'
+            ], 404);
+        }
+
+        $stage->delete();
+
+        return response()->json([
+           'message' => 'Successfully deleted stage'
         ]);
     }
 }
