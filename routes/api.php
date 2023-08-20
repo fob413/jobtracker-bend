@@ -35,5 +35,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::group(['prefix' => '/job'], function () {
         Route::post('/', [JobController::class, 'create']);
+        Route::get('/', [JobController::class, 'list']);
+        Route::delete('/{id}', [JobController::class, 'delete']);
+        Route::put('/{id}', [JobController::class, 'update']);
     });
 });
