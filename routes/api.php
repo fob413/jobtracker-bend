@@ -28,4 +28,5 @@ Route::prefix('auth')->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::post('/stage', [StageController::class, 'create']);
     Route::get('/stage', [StageController::class, 'list']);
+    Route::delete('/stage/{id}', [StageController::class, 'delete']);
 });
