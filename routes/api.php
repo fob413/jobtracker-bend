@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\StageController;
+use App\Http\Controllers\JobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,13 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-    Route::post('/stage', [StageController::class, 'create']);
-    Route::get('/stage', [StageController::class, 'list']);
-    Route::delete('/stage/{id}', [StageController::class, 'delete']);
+    Route::group(['prefix' => '/stage'], function () {
+        Route::post('/', [StageController::class, 'create']);
+        Route::get('/', [StageController::class, 'list']);
+        Route::delete('/{id}', [StageController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => '/job'], function () {
+        Route::post('/', [JobController::class, 'create']);
+    });
 });

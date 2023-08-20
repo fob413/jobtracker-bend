@@ -15,7 +15,7 @@ class Job extends Model
     ];
 
     public function stage() {
-        return $this->belongsToMany(Stage::class);
+        return $this->belongsTo(Stage::class);
     }
 
     public function user() {
