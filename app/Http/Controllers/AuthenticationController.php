@@ -47,7 +47,7 @@ class AuthenticationController extends Controller
             return response()->json([
                 'message' => 'Successfully hit the signup endpoint',
                 'token' => $token
-            ]);
+            ], 201);
         }
         catch (Exception $e) {
             return response()->json([
